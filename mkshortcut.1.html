@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="content-type" content="text/html;charset=iso-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" content="text/css">
+Manpage of MKSHORTCUT</TITLE>
+</HEAD><BODY>
+
+<H1>MKSHORTCUT</H1>
+Section: Cygutils (1)<BR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+mkshortcut - create a Windows shortcut
+
+
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>mkshorcut</B>
+
+[-<B>a</B> <I>ARGS</I>]
+
+[-<B>d</B> <I>DESC</I>]
+
+[-<B>i</B> <I>ICONFILE</I> [-<B>j</B> <I>INT</I>] ]
+
+[-<B>n</B> <I>NAME</I> ]
+
+[-<B>s</B> <I>norm|min|max</I> ]
+
+[-<B>w</B> <I>PATH</I> ]
+
+[-A] [-D|-P] <I>TARGET</I>
+
+<BR>
+
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<P>
+<DL COMPACT>
+<DT><B>-a</B>, <B>--arguments</B>=<I>ARGS</I><DD>
+Arguments to use (see example below).
+<P>
+<DT><B>-d</B>, <B>--desc</B>=<I>&quot;DESC&quot;</I><DD>
+Text for description/tooltip (defaults to POSIX path of TARGET). Note that <I>&quot;DESC&quot;</I> can contain spaces, but in that case must be enclosed in quotes.
+<P>
+<DT><B>-h</B>, <B>--help</B><DD>
+Output usage information (to stdout) and exit.
+<P>
+<DT><B>-i</B>, <B>--icon</B>=<I>ICONFILE</I><DD>
+Specify <I>ICONFILE</I> containing the icon to use for the shortcut; defaults to
+<B>TARGET</B>. <I>ICONFILE</I> must be a full filename, including an extension if 
+applicable.
+<P>
+<DT><B>-j</B>, <B>--iconoffset</B>=<I>NUM</I><DD>
+Requires <B>-i</B>. Use <I>NUM</I> icon in <I>ICONFILE</I>, offset from 0. Defaults
+to 0.
+<P>
+<DT><B>-n</B>, <B>--name</B>=<I>&quot;NAME&quot;</I><DD>
+Name to use for the shortcut file. Note that <I>&quot;NAME&quot;</I> can contain spaces, but in
+that case must be enclosed in quotes. The Windows extention <B>.lnk</B> is automatically
+appended to <I>&quot;NAME&quot;</I> if not present.
+<P>
+<DT><B>-s</B>, <B>--show</B>=<I>norm|min|max</I><DD>
+For norm, min, and max the new window will be normal, minimized, and 
+maximized, respectively.  Note that if you use the properties dialog to
+inspect properties of shortcuts for which you request minimized windows 
+the dialog may indicate that normal windows will be displayed.  Fortunately,
+that indicator is often wrong.
+<P>
+<P>
+<DT><B>-w</B>, <B>--workingdir</B>=<I>&quot;PATH&quot;</I><DD>
+PATH to use for the working directory (defaults to directory path of TARGET).
+<P>
+<DT><B>-v</B>, <B>--version</B><DD>
+Output version information (to stdout) and exit.
+<P>
+<DT><B>-A</B>, <B>--allusers</B><DD>
+Requires either <B>-D</B> or <B>-P</B>. Instead of using the current user's <I>&quot;Desktop&quot;</I> 
+or <I>&quot;Start Menu/Programs&quot;</I> folders, use the <I>&quot;All Users&quot;</I> version. Has no effect on
+Win95 without multiple users.
+<P>
+<DT><B>-D</B>, <B>--desktop</B><DD>
+Instead of creating the shortcut relative to the current directory, create it relative
+to the Windows <I>&quot;Desktop&quot;</I> directory. The <B>-A</B> option can also be used to use
+the <I>&quot;All Users/Desktop&quot;</I> directory instead.
+<P>
+<DT><B>-P</B>, <B>--smprograms</B><DD>
+Instead of creating the shortcut relative to the current directory, create it relative
+to the Windows <I>&quot;Start Menu/Programs&quot;</I> directory. The <B>-A</B> option can also be used 
+to use the <I>&quot;All Users/Start Menu/Programs&quot;</I> directory instead.
+<P>
+
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<H2>NOTES</H2>
+
+All filename arguments must be in unix (POSIX) format, not in Windows (C:\) format.
+If <B>mkshortcut</B> encounters a syntax error, it will return an exit value of 1 and 
+output usage information to stderr.
+<P>
+
+If you don't need any of <B>mkshortcut</B>'s options and just want a simple link to a
+file or directory, you might want to just use a symbolic link with <B>ln</B>.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+Create a shortcut to the Cygwin website in the <I>&quot;Start Menu/Programs&quot;</I> directory:
+<P>
+
+<PRE>
+$ mkshortcut -P <A HREF="http://www.cygwin.com">http://www.cygwin.com</A>
+</PRE>
+
+<P>
+
+Create a shortuct to <B>rxvt</B> on the <I>&quot;Desktop&quot;</I> that looks like <I>&quot;Internet 
+Explorer&quot;</I> but really starts up an interactive <B>bash</B> shell:
+<P>
+
+<PRE>
+$ mkshortcut -a '-rv -fn &quot;FixedSys&quot; -e /bin/bash --login -i' \
+-i /c/WINNT/system32/SHELL32.DLL -j 106 -n &quot;Internet Explorer&quot; \
+-D /bin/rxvt
+</PRE>
+
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright (C) 2002 Joshua Daniel Franklin
+<P>
+
+<B>mkshortcut</B> is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option) any 
+later version.
+<P>
+
+<B>mkshortcut</B> is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+more details.
+<P>
+
+You should have received a copy of the GNU General Public License; 
+see the file COPYING. If not, write to the 
+Free Software Foundation, 
+59 Temple Place,
+Suite 330, Boston, MA  02111-1307, USA.
+<P>
+
+<A NAME="lbAH">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Joshua Daniel Franklin, <A HREF="mailto:joshuadfranklin@yahoo.com">joshuadfranklin@yahoo.com</A>
+
+
+<A NAME="lbAI">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="../man1/ln.1.html">ln</A></B>(1)
+
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">OPTIONS</A><DD>
+<DT><A HREF="#lbAE">NOTES</A><DD>
+<DT><A HREF="#lbAF">EXAMPLES</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">AUTHOR</A><DD>
+<DT><A HREF="#lbAI">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by man2html,
+using the manual pages.<BR>
+
+
+</BODY></HTML>
+
+
+
